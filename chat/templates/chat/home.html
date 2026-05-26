@@ -1,0 +1,51 @@
+{% extends 'chat/base.html' %}
+
+{% block title %}Lobby — Chatters{% endblock %}
+
+{% block content %}
+<div class="lobby-container">
+    <div class="lobby-hero">
+        <h1>Welcome to the Lobby</h1>
+        <p>Join an active conversation or create your own custom chat room in seconds.</p>
+        <a href="{% url 'chat:create_room' %}" class="btn primary-btn create-room-btn">
+            <span class="btn-icon">+</span> Create Chat Room
+        </a>
+    </div>
+
+    <div class="rooms-section">
+        <h2>Active Chat Rooms</h2>
+        {% if rooms %}
+            <div class="rooms-grid">
+                {% for room in rooms %}
+                    <div class="room-card">
+                        <div class="room-card-header">
+                            <h3>{{ room.name }}</h3>
+                            <span class="room-author">by {{ room.created_by.username }}</span>
+                        </div>
+                        <p class="room-description">
+                            {% if room.description %}
+                                {{ room.description }}
+                            {% else %}
+                                No description provided for this room.
+                            {% endif %}
+                        </p>
+                        <div class="room-card-footer">
+                            <span class="room-date">{{ room.created_at|date:"M d, Y" }}</span>
+                            <a href="{% url 'chat:room' slug=room.slug %}" class="btn secondary-btn join-btn">
+                                Join Room &rarr;
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">💬</div>
+                <h3>No Rooms Available</h3>
+                <p>Be the first one to create a room and start the conversation!</p>
+                <a href="{% url 'chat:create_room' %}" class="btn primary-btn">Create Room</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'chat/base.html' %}
+
+{% block title %}Register — Chatters{% endblock %}
+
+{% block content %}
+<div class="form-container-wrapper">
+    <div class="form-card">
+        <div class="form-header">
+            <h2>Get Started</h2>
+            <p>Create a secure profile to participate in real-time chats.</p>
+        </div>
+
+        <form method="post" class="form-content">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="field-errors">
+                    {% for error in form.non_field_errors %}
+                        <span class="error-msg">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="field-errors">
+                            {% for error in field.errors %}
+                                <span class="error-msg">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if field.help_text %}
+                        <small class="form-help">{{ field.help_text }}</small>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <div class="form-actions">
+                <button type="submit" class="btn primary-btn submit-btn">Create Account</button>
+            </div>
+        </form>
+
+        <div class="form-footer">
+            <p>Already have an account? <a href="{% url 'accounts:login' %}">Sign in here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

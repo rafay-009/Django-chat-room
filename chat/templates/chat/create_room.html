@@ -1,0 +1,40 @@
+{% extends 'chat/base.html' %}
+
+{% block title %}Create Room — Chatters{% endblock %}
+
+{% block content %}
+<div class="form-container-wrapper">
+    <div class="form-card">
+        <div class="form-header">
+            <h2>Create a Chat Room</h2>
+            <p>Specify a name and details to host your new discussion channel.</p>
+        </div>
+
+        <form method="post" class="form-content">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="field-errors">
+                            {% for error in field.errors %}
+                                <span class="error-msg">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if field.help_text %}
+                        <small class="form-help">{{ field.help_text }}</small>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <div class="form-actions">
+                <button type="submit" class="btn primary-btn submit-btn">Create Room</button>
+                <a href="{% url 'chat:home' %}" class="btn text-btn cancel-btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

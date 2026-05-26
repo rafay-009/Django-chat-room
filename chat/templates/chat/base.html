@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Chatters{% endblock %}</title>
+    <!-- Google Fonts: Outfit and Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'chat/css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-container">
+            <a href="{% url 'chat:home' %}" class="logo">
+                <span class="logo-icon">💬</span>
+                <span class="logo-text">Chat<span class="highlight">ters</span></span>
+            </a>
+            <nav class="nav-menu">
+                {% if user.is_authenticated %}
+                    <span class="user-badge">
+                        <span class="status-indicator"></span>
+                        {{ user.username }}
+                    </span>
+                    <form action="{% url 'accounts:logout' %}" method="post" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-btn logout-btn">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}" class="nav-btn login-btn">Login</a>
+                    <a href="{% url 'accounts:register' %}" class="nav-btn register-btn">Register</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main class="app-main">
+        {% if messages %}
+            <div class="alerts-container">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="app-footer">
+        <p>&copy; 2026 Chatters. Designed for speed, style, and simplicity.</p>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
