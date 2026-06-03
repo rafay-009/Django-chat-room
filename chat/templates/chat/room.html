@@ -68,3 +68,7 @@
 {{ room.slug|json_script:"room-slug" }}
 {{ request.user.username|json_script:"user-username" }}
 {% endblock %}
+{% block extra_js %}
+    {% load static %}
+    <script src="{% static 'chat/js/chat.js' %}"></script>
+{% endblock %}

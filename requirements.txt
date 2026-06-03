@@ -1,0 +1,7 @@
+Django==6.0.5
+channels==4.1.0
+daphne==4.1.0
+python-dotenv==1.0.0
+psycopg2-binary==2.9.10
+dj-database-url==2.1.0
+whitenoise==6.5.0
