@@ -84,8 +84,6 @@ __pypackages__/
 celerybeat-schedule
 
 # dotenv
-.env
-.env.*
 
 # virtualenv
 venv/
@@ -112,7 +110,6 @@ env/
 .pyre/
 
 # IDEs and editors
-.vscode/
 .idea/
 *.sublime-project
 *.sublime-workspace
@@ -140,3 +137,9 @@ docker-compose.*.yml
 # Temporary files
 *.swp
 *~
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
+config.bat
+node_modules
